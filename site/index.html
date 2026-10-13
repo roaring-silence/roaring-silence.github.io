@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Roaring Silence</title>
+<meta name="description" content="Stilles Sitzen und yogischer Gesang in Köln-Mülheim. Praxisgruppe der Aro gTér-Linie, vierzehntägig sonntags 18 bis 19 Uhr.">
+<style>
+/* Layout: one left-aligned reading column under a full-width wordmark that sets
+   loud against quiet in a single typeface; dates as a ruled ledger. */
+@font-face { font-family: "Archivo"; src: url("fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("fonts/newsreader.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("fonts/newsreader-italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nanum Brush Script"; src: url("fonts/nanum-brush-script.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+
+:root {
+  /* Roaring Silence design system, Paper theme — a modern cool grey, not warm stone or beige paper */
+  --page: #e9eaea;
+  --page-rgb: 233 234 234;
+  --page-raised: #f2f3f3;
+  --page-sunk: #dddfdf;
+  --ink: #15181c;
+  --ink-muted: #5b6068;
+  --ink-inverse: #e9eaea;
+  --hairline: #cbcdcd;
+  --dusk: #2a4a73;
+  --cancelled: #a8231f;
+  /* the five elements: earth, water, fire, air, space — the lineage's values, unchanged */
+  --element-earth: #d9a400; --element-water: #ffffff; --element-fire: #c8372d; --element-air: #2e8b57; --element-space: #1b49c9;
+
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --hand: "Nanum Brush Script", "Segoe Script", "Bradley Hand", cursive;
+  /* lighter at the top so the film reads clearly, settling to full `page` by the time body copy starts */
+  --scrim: linear-gradient(to bottom, rgb(var(--page-rgb) / 0.12) 0%, rgb(var(--page-rgb) / 0.30) 30%, rgb(var(--page-rgb) / 0.78) 55%, rgb(var(--page-rgb) / 1) 78%);
+  --step--1: 0.875rem; --step-0: 1.125rem; --step-1: 1.375rem; --step-2: 1.75rem;
+  --measure: 38rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; position: relative; background: var(--page); color: var(--ink); font-family: var(--body); font-size: var(--step-0); line-height: 1.55; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* backdrop: the evening film sits behind the top of the page and dissolves
+   into the page colour, so the reading column never competes with it */
+.backdrop { position: absolute; top: 0; left: 0; right: 0; height: min(84vh, 50rem); z-index: -1; overflow: hidden; background: var(--page); }
+.backdrop video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.backdrop::after {
+  content: ""; position: absolute; inset: 0;
+  background: var(--scrim);
+}
+
+/* language switch: German is the default, also without script */
+:root:not([data-lang="en"]) [data-l="en"] { display: none; }
+:root[data-lang="en"] [data-l="de"] { display: none; }
+
+a { color: var(--dusk); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--dusk); outline-offset: 3px; border-radius: 2px; }
+
+/* ElementSpine: the five bands always in this order, stacked vertically down
+   the left edge — never reordered, never dropped, never a status. */
+.spine { position: fixed; top: 0; left: 0; bottom: 0; width: 6px; z-index: 2; display: grid; grid-template-rows: repeat(5, 1fr); border-right: 1px solid var(--hairline); pointer-events: none; }
+.spine i:nth-child(1) { background: var(--element-earth); }
+.spine i:nth-child(2) { background: var(--element-water); }
+.spine i:nth-child(3) { background: var(--element-fire); }
+.spine i:nth-child(4) { background: var(--element-air); }
+.spine i:nth-child(5) { background: var(--element-space); }
+
+.wrap { max-width: 62rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 2.5rem); padding-block: 1.25rem 3rem; display: flex; flex-direction: column; gap: 3.5rem; }
+.col { max-width: var(--measure); min-width: 0; display: flex; flex-direction: column; gap: 1rem; }
+.col p, .col dl, .col ul { margin: 0; }
+
+.top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--display); font-size: var(--step--1); }
+.top .where { letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; color: var(--ink-muted); }
+.controls { display: flex; align-items: center; gap: 0.25rem; }
+.lang { display: flex; gap: 0.25rem; }
+.lang button { font: inherit; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-muted); background: transparent; border: 1px solid transparent; padding: 0.3rem 0.6rem; cursor: pointer; }
+.lang button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+.motion { font: inherit; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-muted); background: transparent; border: 1px solid transparent; padding: 0.3rem 0.6rem; cursor: pointer; }
+.motion:hover { color: var(--ink); }
+
+.hero { display: flex; flex-direction: column; gap: 1.5rem; }
+
+/* The calligraphy mark: Hung, Ngak'chang Rinpoche's hand, Aro gTér "Sky Signatures".
+   One per surface, head and foot. It sits straight on the page: the ink multiplies
+   into the ground and the mark's own white paper disappears. */
+.mark-plate { display: inline-block; line-height: 0; }
+.mark { display: block; width: 7.5rem; height: 7.5rem; mix-blend-mode: multiply; }
+.mark-foot { width: 2.75rem; height: 2.75rem; }
+.mark-credit { display: flex; align-items: center; gap: 0.75rem; }
+.mark-credit p { max-width: none; }
+
+.wordmark { margin: 0; font-family: var(--display); font-size: clamp(3rem, 14.5vw, 9.5rem); line-height: 0.86; font-stretch: 125%; letter-spacing: -0.02em; }
+.wordmark .loud { display: block; font-weight: 900; text-transform: uppercase; }
+.wordmark .quiet { display: block; font-family: var(--hand); font-weight: 400; text-transform: lowercase; letter-spacing: 0; font-size: 1.28em; line-height: 0.82; margin-top: -0.03em; }
+.lede { margin: 0; font-size: var(--step-2); line-height: 1.25; text-wrap: balance; }
+.epigraph { margin: 0; max-width: var(--measure); border-left: 2px solid var(--dusk); padding-left: 1rem; font-style: italic; font-size: var(--step-1); line-height: 1.4; }
+.epigraph .attr { font-style: normal; font-size: var(--step--1); color: var(--ink-muted); }
+.epigraph sup { font-style: normal; }
+.epigraph sup a { text-decoration: none; }
+
+.footnotes { border-top: 1px solid var(--hairline); padding-top: 1rem; font-size: var(--step--1); color: var(--ink-muted); font-family: var(--body); font-style: italic; }
+.footnotes ol { margin: 0; padding-left: 1.2rem; }
+.footnotes li { padding-left: 0.3rem; }
+.footnotes a { color: var(--dusk); }
+.facts { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; font-family: var(--display); font-size: var(--step--1); font-weight: 500; color: var(--ink-muted); }
+.next { background: var(--page-raised); border: 1px solid var(--hairline); padding: 1rem 1.25rem; max-width: var(--measure); display: flex; flex-direction: column; gap: 0.15rem; }
+.next .label { font-family: var(--display); font-size: var(--step--1); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.next .when { font-family: var(--display); font-size: var(--step-1); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+section { display: flex; flex-direction: column; gap: 1.25rem; }
+h2 { margin: 0; font-family: var(--display); font-size: var(--step-2); font-weight: 800; font-stretch: 110%; line-height: 1.1; text-wrap: balance; }
+h3 { margin: 0; font-family: var(--display); font-size: var(--step-0); font-weight: 700; }
+.note { font-size: var(--step--1); color: var(--ink-muted); font-family: var(--body); font-style: italic; }
+a.term { color: inherit; text-decoration-style: dotted; text-decoration-color: var(--dusk); }
+
+/* dates ledger */
+.dates { list-style: none; margin: 0; padding: 0; max-width: 46rem; border-top: 2px solid var(--ink); }
+.dates li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.15rem 1rem; align-items: baseline; padding: 0.7rem 0; border-bottom: 1px solid var(--hairline); font-family: var(--display); font-variant-numeric: tabular-nums; }
+.dates .day { font-weight: 600; min-width: 0; }
+.dates .time { color: var(--ink-muted); font-size: var(--step--1); white-space: nowrap; }
+.dates .why { grid-column: 1 / -1; font-family: var(--body); font-style: italic; color: var(--ink-muted); font-size: var(--step--1); }
+.dates li.off .day { text-decoration: line-through; text-decoration-color: var(--cancelled); color: var(--ink-muted); font-weight: 400; }
+.dates li.off .time { color: var(--cancelled); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.dates li.is-next .day::after { content: attr(data-next); margin-left: 0.6rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dusk); white-space: nowrap; }
+
+@media (max-width: 30rem) { .dates li.is-next .day::after { display: block; margin-left: 0; } }
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.btn { font-family: var(--display); font-size: var(--step--1); font-weight: 700; letter-spacing: 0.03em; padding: 0.7rem 1.1rem; border: 1.5px solid var(--ink); background: var(--ink); color: var(--ink-inverse); text-decoration: none; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { background: var(--dusk); border-color: var(--dusk); color: var(--ink-inverse); }
+.copyrow { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: stretch; max-width: 46rem; }
+.copyrow code { flex: 1 1 14rem; min-width: 0; overflow-wrap: anywhere; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.8rem; padding: 0.6rem 0.75rem; background: var(--page-raised); border: 1px solid var(--hairline); user-select: all; }
+
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 2.5rem 3rem; }
+.pair > div { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+.pair p { margin: 0; }
+
+
+/* questions */
+.qa { max-width: 46rem; border-top: 2px solid var(--ink); }
+.qa details { border-bottom: 1px solid var(--hairline); }
+.qa summary { display: flex; gap: 0.75rem; align-items: baseline; padding: 0.75rem 0; cursor: pointer; font-family: var(--display); font-weight: 600; list-style: none; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::before { content: "+"; flex: none; width: 0.9em; color: var(--dusk); font-weight: 700; }
+.qa details[open] > summary::before { content: "\2013"; }
+.qa summary:hover { color: var(--dusk); }
+.qa .answer { display: flex; flex-direction: column; gap: 0.6rem; padding: 0 0 0.95rem 1.65rem; font-size: 1rem; line-height: 1.5; }
+.qa .answer p { margin: 0; }
+.qa .answer q { font-style: italic; }
+
+footer { border-top: 1px solid var(--hairline); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; font-family: var(--display); font-size: var(--step--1); color: var(--ink-muted); }
+footer p { margin: 0; max-width: var(--measure); }
+</style>
+
+<div class="backdrop" aria-hidden="true">
+  <video id="bg" poster="media/rhein-abend.jpg" data-src="media/rhein-abend.mp4"
+         muted playsinline disablepictureinpicture preload="none"></video>
+</div>
+
+<div class="spine" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="top">
+      <span class="where"><span data-l="de">Köln-Mülheim</span><span data-l="en" lang="en">Köln-Mülheim</span></span>
+      <div class="controls">
+        <button type="button" class="motion" id="motion" hidden></button>
+        <div class="lang" role="group" aria-label="Sprache / Language">
+          <button type="button" id="lang-de" aria-pressed="true">DE</button>
+          <button type="button" id="lang-en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </div>
+
+    <span class="mark-plate"><img class="mark" src="media/hung.jpg" width="72" height="72" alt="Kalligrafie Hung, gemalt von Ngak’chang Rinpoche, Aro gTér-Linie"></span>
+    <h1 class="wordmark" lang="en"><span class="loud">Roaring</span><span class="quiet">Silence</span></h1>
+
+    <p class="lede" data-l="de">Stilles Sitzen und yogischer Gesang. Eine Praxisgruppe der Aro gTér-Tradition.</p>
+    <p class="lede" data-l="en" lang="en">Silent sitting and yogic song. A sitting group of the Aro gTér Tradition.</p>
+
+    <p class="epigraph" data-l="de"><q>Wenn du einfach vergisst, was richtig und falsch ist, und einfach sitzt – kommt die ganze Sache von selbst zur Ruhe.</q> <span class="attr">— Khandro Déchen<sup><a href="#fn-quote" id="fnref-quote">1</a></sup></span></p>
+    <p class="epigraph" data-l="en" lang="en"><q>If you simply forget about right and wrong and simply sit—the whole deal will relax by itself.</q> <span class="attr">— Khandro Déchen<sup><a href="#fn-quote-en" id="fnref-quote-en">1</a></sup></span></p>
+
+    <ul class="facts" data-l="de">
+      <li>Vierzehntägig sonntags, 18 bis 19 Uhr</li>
+      <li>Zeiträume Studio, Köln-Mülheim</li>
+      <li>Auf Spendenbasis</li>
+    </ul>
+    <ul class="facts" data-l="en" lang="en">
+      <li>Every second Sunday, 6 to 7 pm</li>
+      <li>Zeiträume Studio, Köln-Mülheim</li>
+      <li>By donation</li>
+    </ul>
+
+    <div class="next" id="next" hidden>
+      <span class="label"><span data-l="de">Nächster Termin</span><span data-l="en" lang="en">Next session</span></span>
+      <span class="when" id="next-when"></span>
+    </div>
+  </header>
+
+  <section id="praxis">
+    <h2><span data-l="de">Die Praxis</span><span data-l="en" lang="en">The Practice</span></h2>
+    <div class="col" data-l="de">
+      <p>Wir sitzen gemeinsam in Stille und praktizieren dazwischen <a class="term" href="https://aroencyclopaedia.org/shared/text/y/yogic_song_ar_deu.php">yogischen Gesang</a>.</p>
+      <p>Das stille Sitzen basiert auf <a class="term" href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/">shi-nè</a> – einer <a class="term" href="https://aroterlineage.org/de/about/dzogchen/">Dzogchen</a>-Methode, die den Geist zur Ruhe kommen lässt. Was im Geist auftaucht, lassen wir kommen und wieder gehen, ohne uns einzumischen, zu urteilen oder zu benennen, und ohne festzuhalten. Wir geben uns Zeit und Raum, zur Ruhe zu kommen, und öffnen uns dem, was sich zeigt, wenn die Gedanken sich beruhigen. Im yogischen Gesang unterbrechen Klang und Körperempfindung die Stille und eröffnen die Möglichkeit, die Präsenz des Gewahrseins zu finden. Die Form entspricht den Praxisgruppen der <a class="term" href="https://aroterlineage.org/de/about/aro-gter-tradition/">Aro gTér</a>-Linie an anderen Orten.</p>
+      <p>Die Gruppe ist offen für alle, mit oder ohne Meditationserfahrung. Geleitet wird sie von Philip, Apprentice bei <a href="https://aroterlineage.org/de/teachers/ngakma-dewang-pamo-and-naljorpa-traktung-dorje/">Ngakma Déwang Pamo und Naljorpa Trak’thung Dorje</a>.</p>
+      <p class="note">Der Name stammt von <a href="https://www.aroterlineage.org/en/books/roaring-silence/"><cite lang="en">Roaring Silence</cite></a>, dem Buch von Ngak’chang Rinpoche und Khandro Déchen über die Meditationspraxis aus der Perspektive des Dzogchen.</p>
+    </div>
+    <div class="col" data-l="en" lang="en">
+      <p>We sit together in silence and practise <a class="term" href="https://aroterlineage.org/en/teachings/chant-yogic-song/">yogic song</a> in between.</p>
+      <p>The silent sitting practice is based on <a class="term" href="https://aroterlineage.org/en/meditation-course/">shi-nè</a> – a <a class="term" href="https://aroterlineage.org/en/about/dzogchen/">Dzogchen</a> method that lets the mind come to rest. We let what appears in the mind come and go, without getting involved, judging, or naming it, and without holding on. We give ourselves time and space to rest, open to what manifests as the thoughts calm down. In yogic song, sound and bodily sensation interrupt the silence and open the possibility of finding presence of awareness. The format is the same as in Aro gTér sitting groups elsewhere.</p>
+      <p>The group is open to everyone, with or without meditation experience. Sessions are held in German, and in English as needed. It is led by Philip, Apprentice to <a href="https://aroterlineage.org/en/teachers/ngakma-dewang-pamo-and-naljorpa-traktung-dorje/">Ngakma Déwang Pamo and Naljorpa Trak’thung Dorje</a>.</p>
+      <p class="note">The name comes from <a href="https://www.aroterlineage.org/en/books/roaring-silence/"><cite>Roaring Silence</cite></a>, the book on Dzogchen meditation by Ngak’chang Rinpoche and Khandro Déchen.</p>
+    </div>
+  </section>
+
+  <section id="termine">
+    <h2><span data-l="de">Termine</span><span data-l="en" lang="en">Dates</span></h2>
+    <ul class="dates" id="dates" aria-live="polite"></ul>
+    <p class="note" id="dates-empty" hidden><span data-l="de">Zurzeit sind keine Termine eingetragen. Neue Termine erscheinen hier und im Kalender.</span><span data-l="en" lang="en">No dates are listed at the moment. New dates will appear here and in the calendar.</span></p>
+    <p class="note"><span data-l="de">Absagen stehen zuerst hier und in der Signal-Gruppe. Abonnierte Kalender aktualisieren sich oft erst nach einigen Stunden.</span><span data-l="en" lang="en">Cancellations appear here and in the Signal group first. Subscribed calendars often take a few hours to update.</span></p>
+  </section>
+
+  <section id="dabei">
+    <h2><span data-l="de">Auf dem Laufenden bleiben</span><span data-l="en" lang="en">Stay informed</span></h2>
+    <div class="pair">
+      <div>
+        <h3><span data-l="de">Kalender abonnieren</span><span data-l="en" lang="en">Subscribe to the calendar</span></h3>
+        <p><span data-l="de">Alle Termine erscheinen in deinem Kalender und aktualisieren sich von selbst.</span><span data-l="en" lang="en">All dates appear in your calendar and update by themselves.</span></p>
+        <div class="actions">
+          <a class="btn" id="webcal" href="roaring-silence.ics"><span data-l="de">Kalender abonnieren</span><span data-l="en" lang="en">Subscribe</span></a>
+        </div>
+        <p class="note"><span data-l="de">Falls der Knopf nichts öffnet: diese Adresse im Kalenderprogramm unter „Kalender per URL hinzufügen“ einfügen.</span><span data-l="en" lang="en">If the button opens nothing, paste this address into your calendar app under “Add calendar from URL”.</span></p>
+        <div class="copyrow">
+          <code id="ics-url">roaring-silence.ics</code>
+          <button type="button" class="btn ghost" id="copy-ics" data-copy="ics-url"><span data-l="de">Kopieren</span><span data-l="en" lang="en">Copy</span></button>
+        </div>
+      </div>
+      <div>
+        <h3><span data-l="de">Erinnerungen per Signal</span><span data-l="en" lang="en">Reminders via Signal</span></h3>
+        <p><span data-l="de">In der Signal-Gruppe gibt es Erinnerungen und kurzfristige Änderungen. Nur die Leitung schreibt, es bleibt also ruhig.</span><span data-l="en" lang="en">The Signal group carries reminders and short-notice changes. Only the organiser posts, so it stays quiet.</span></p>
+        <div class="actions" id="signal-on" hidden>
+          <a class="btn" id="signal-link" href="#dabei"><span data-l="de">Signal-Gruppe beitreten</span><span data-l="en" lang="en">Join the Signal group</span></a>
+        </div>
+        <p class="note" id="signal-off"><span data-l="de">Der Beitrittslink folgt. Bis dahin genügt eine E-Mail.</span><span data-l="en" lang="en">The invitation link will follow. Until then, an email is enough.</span></p>
+        <h3><span data-l="de">Kontakt</span><span data-l="en" lang="en">Contact</span></h3>
+        <div class="copyrow">
+          <code id="mail">aro.sangha.cologne@gmail.com</code>
+          <button type="button" class="btn ghost" id="copy-mail" data-copy="mail"><span data-l="de">Kopieren</span><span data-l="en" lang="en">Copy</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ort">
+    <h2><span data-l="de">Ort und Spende</span><span data-l="en" lang="en">Venue and donations</span></h2>
+    <div class="pair">
+      <div>
+        <h3><a href="https://www.zeitraeume-koeln.de/Raum-fuer-Entspannung-und-Bewegung,page.html">Zeiträume Studio</a></h3>
+        <p id="addr-on" hidden><span id="addr"></span> <a id="map" href="#ort" hidden><span data-l="de">Karte</span><span data-l="en" lang="en">Map</span></a></p>
+        <p id="addr-off"><span data-l="de">Köln-Mülheim. Die genaue Adresse folgt hier und steht in jedem Kalendereintrag.</span><span data-l="en" lang="en">Köln-Mülheim. The exact address will follow here and is included in every calendar entry.</span></p>
+      </div>
+      <div>
+        <h3><span data-l="de">Auf Spendenbasis</span><span data-l="en" lang="en">By donation</span></h3>
+        <p><span data-l="de">Die Teilnahme ist kostenlos. Wir freuen uns jedoch über Spenden, um die Raumkosten zu decken – einmalig vor Ort.</span><span data-l="en" lang="en">Participation is free. We're glad to receive donations to help cover the cost of the room, once at the session.</span></p>
+        <div class="actions" id="donate-on" hidden>
+          <a class="btn ghost" id="donate-link" href="#ort"><span data-l="de">Regelmäßig beitragen</span><span data-l="en" lang="en">Contribute regularly</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fragen">
+    <h2><span data-l="de">Häufige Fragen</span><span data-l="en" lang="en">Questions</span></h2>
+    <div class="qa">
+
+      <details open>
+        <summary><span data-l="de">Brauche ich Vorerfahrung?</span><span data-l="en" lang="en">Do I need prior experience?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Nein. Zu Beginn jeder Sitzung gibt es eine kurze Einführung in das, was wir tun. Für die meisten Veranstaltungen der Linie gilt: keine Voraussetzungen, keine Erfahrung mit Meditation oder Buddhismus nötig.</p>
+          <p>Bei Interesse bietet die Linie jedoch einen <a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/">kostenlosen Meditationskurs per E-Mail</a> an.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>No. Each session opens with a short introduction to what we do. For most events in the lineage there are no prerequisites, and no experience with meditation or Buddhism is needed.</p>
+          <p>However, if you're interested, the lineage offers a <a href="https://aroterlineage.org/en/meditation-course/">free meditation course by email</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Lässt sich die Praxis mit Beruf und Familie vereinbaren?</span><span data-l="en" lang="en">Does practice fit alongside work and family life?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Ja. In der Aro gTér-Linie leben die meisten Praktizierenden mitten im Alltag, nicht im Kloster. Mehr dazu im <a href="https://aroterlineage.org/de/press/interview-with-dewang-pamo/">Interview mit Ngakma Déwang Pamo</a>.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>Yes. In the Aro gTér lineage, most practitioners live fully in everyday life rather than in a monastery. More in this <a href="https://aroterlineage.org/en/press/interview-with-dewang-pamo/">interview with Ngakma Déwang Pamo</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Wie läuft eine Sitzung ab?</span><span data-l="en" lang="en">What happens in a session?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Eine Stunde, sonntags von 18 bis 19 Uhr. Wir sitzen gemeinsam in Stille und üben dazwischen <a class="term" href="https://aroencyclopaedia.org/shared/text/y/yogic_song_ar_deu.php">yogischen Gesang</a>. Davor steht die kurze Einführung, Fragen sind willkommen.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>One hour, Sundays from 6 to 7 pm. We sit together in silence and practise <a class="term" href="https://aroterlineage.org/en/teachings/chant-yogic-song/">yogic song</a> in between. The short introduction comes first, and questions are welcome.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Muss ich Buddhistin oder Buddhist sein?</span><span data-l="en" lang="en">Do I have to be a Buddhist?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Nein. Die Praxis selbst ist nicht an einen Glauben gebunden.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/about/what-to-expect-at-aro-gter-events/">Was bei Veranstaltungen der Linie zu erwarten ist</a> (englisch) · <a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>No. The practice itself asks for nothing to be believed.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/about/what-to-expect-at-aro-gter-events/">What to expect at Aro gTér events</a> · <a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Muss ich singen können?</span><span data-l="en" lang="en">Do I need to be able to sing?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Nein. <q>Es geht nicht darum, ein perfekter Teil eines perfekten Chors zu sein – sondern in die Dimension des Klangs einzutreten.</q> Zittrige oder brüchige Töne gehören zur Übung.</p>
+          <p class="note"><a href="https://aroencyclopaedia.org/shared/text/y/yogic_song_ar_deu.php">Über yogischen Gesang</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>No. <q>The principle is not to be a perfect part of a perfect choir – but to enter into the dimension of sound.</q> Quivering or faltering notes are part of the practice.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/teachings/chant-yogic-song/">About chant and yogic song</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Ich kann meine Gedanken nicht abstellen.</span><span data-l="en" lang="en">I can’t stop thinking.</span></summary>
+        <div class="answer" data-l="de">
+          <p>Das ist auch nicht nötig. Um zu meditieren, muss das Denken nicht aufhören.</p>
+          <p class="note"><a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>You don’t have to. It is not necessary to stop thinking in order to meditate.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Ich kann nicht am Boden sitzen.</span><span data-l="en" lang="en">I can’t sit on the floor.</span></summary>
+        <div class="answer" data-l="de">
+          <p>Meditieren geht in vielen Körperhaltungen, auch auf einem Stuhl. Es zählt ein aufrechter Rücken, nicht der volle Lotussitz.</p>
+          <p class="note"><a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>Meditation works in many postures, a chair included. What matters is an upright spine, not full lotus.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Muss ich ein Kissen oder eine Matte mitbringen?</span><span data-l="en" lang="en">Do I need to bring a cushion or mat?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Nein. Vor Ort stehen gute Sitzkissen und Matten zur Verfügung.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>No. Good cushions and mats are available at the venue.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Muss ich mich anmelden?</span><span data-l="en" lang="en">Do I need to register?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Nein, komm einfach vorbei, einmal oder regelmäßig. Ob ein Termin stattfindet, steht oben unter <a href="#termine">Termine</a> und in der Signal-Gruppe.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>No, just come along, once or regularly. Whether a session takes place is listed above under <a href="#termine">Dates</a> and in the Signal group.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Was ziehe ich an?</span><span data-l="en" lang="en">What should I wear?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Bequeme Alltagskleidung genügt.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>Comfortable everyday clothes are fine.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Was kostet es?</span><span data-l="en" lang="en">What does it cost?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Die Teilnahme ist kostenlos. Wir freuen uns über Spenden, um die Raumkosten zu decken, <a href="#ort">einmalig vor Ort</a>.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>Participation is free. We're glad to receive donations to help cover the room, <a href="#ort">once at the session</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Wie bekomme ich persönliche Anleitung?</span><span data-l="en" lang="en">How can I get personal instruction?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Das geht zum Beispiel über das <a href="https://aroterlineage.org/de/get-involved/mentorship/">Mentorship</a>-Programm der Linie. Wenn du magst, wird dir hier eine erfahrene Begleitperson vermittelt, der du Fragen zur Praxis stellen kannst. Solltest du Interesse daran entwickeln, dich tiefer mit dem Vajrayana-Buddhismus auseinanderzusetzen, und Möglichkeiten suchen, die Praxis auf das eigene Leben zuzuschneiden, empfiehlt sich ein <a href="https://aroterlineage.org/de/get-involved/apprenticeship/">Apprenticeship</a> bei einer qualifizierten Lehrperson. Für die Teilnahme an dieser Gruppe ist beides keine Voraussetzung.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>This happens, for example, through the lineage's <a href="https://aroterlineage.org/en/get-involved/mentorship/">Mentorship</a> programme. If you like, you're paired with an experienced practitioner you can ask questions about the practice. Should you develop an interest in engaging more deeply with Vajrayana Buddhism and look for ways to tailor the practice to your own life, an <a href="https://aroterlineage.org/en/get-involved/apprenticeship/">Apprenticeship</a> with a qualified teacher is recommended. Neither is a prerequisite for taking part in this group.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Gibt es weitere Gelegenheiten für gemeinsame Praxis?</span><span data-l="en" lang="en">Are there more opportunities to join practice sessions?</span></summary>
+        <div class="answer" data-l="de">
+          <p><a href="https://aroterlineage.org/de/teachers/ngakma-dewang-pamo-and-naljorpa-traktung-dorje/">Ngakma Déwang Pamo und Naljorpa Trak’thung Dorje</a> bieten online wöchentlich öffentliche Belehrungen und Gruppenpraxis an, darunter sKu-mNyé: Dasein in Bewegung und eine Morgenpraxis.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p><a href="https://aroterlineage.org/en/teachers/ngakma-dewang-pamo-and-naljorpa-traktung-dorje/">Ngakma Déwang Pamo and Naljorpa Trak’thung Dorje</a> offer weekly teachings and group practice online, including sKu-mNyé: Moving Being and a Morning Practice session.</p>
+        </div>
+      </details>
+
+    </div>
+    <p class="note"><span data-l="de">Weitere Fragen beantwortet eine <a href="#dabei">E-Mail</a>.</span><span data-l="en" lang="en">Any other question is welcome by <a href="#dabei">email</a>.</span></p>
+  </section>
+
+  <aside class="footnotes" data-l="de">
+    <ol>
+      <li id="fn-quote">Aus einem Gespräch in <cite lang="en">E-mailing the Lamas from Afar</cite>, <a href="https://aroterlineage.org/en/teachings/e-mailing-the-lamas-from-afar/heres-to-boredom/">„Here’s to boredom!“</a> (englisch, eigene Übersetzung). <a href="#fnref-quote">↩</a></li>
+    </ol>
+  </aside>
+  <aside class="footnotes" data-l="en" lang="en">
+    <ol>
+      <li id="fn-quote-en">From a conversation in <cite>E-mailing the Lamas from Afar</cite>, <a href="https://aroterlineage.org/en/teachings/e-mailing-the-lamas-from-afar/heres-to-boredom/">“Here’s to boredom!”</a>. <a href="#fnref-quote-en">↩</a></li>
+    </ol>
+  </aside>
+
+  <footer>
+    <p><span data-l="de">Roaring Silence ist eine Praxisgruppe der <a href="https://aroterlineage.org/de/">Aro gTér-Linie</a>. Weitere Veranstaltungen stehen im <a href="https://aroterlineage.org/de/events/">Veranstaltungskalender der Linie</a>.</span><span data-l="en" lang="en">Roaring Silence is a sitting group of the <a href="https://aroterlineage.org/en/">Aro gTér Lineage</a>. Further events are listed in the <a href="https://aroterlineage.org/en/events/">lineage’s events calendar</a>.</span></p>
+    <p><span data-l="de">Diese Seite setzt keine Cookies und lädt keine Inhalte von Dritten.</span><span data-l="en" lang="en">This page sets no cookies and loads nothing from third parties.</span></p>
+    <p id="imprint"><a href="impressum.html"><span data-l="de">Impressum</span><span data-l="en" lang="en">Legal notice</span></a></p>
+    <div class="mark-credit">
+      <span class="mark-plate"><img class="mark mark-foot" src="media/hung.jpg" width="44" height="44" alt="Kalligrafie Hung, gemalt von Ngak’chang Rinpoche, Aro gTér-Linie"></span>
+      <p class="note"><span data-l="de">Die Kalligrafie zeigt die Silbe Hung, gemalt von Ngak’chang Rinpoche. <a href="https://aroterlineage.org/en/vajrayana-arts-and-crafts/calligraphy/">Mehr zur Kalligrafie der Linie</a> (englisch).</span><span data-l="en" lang="en">The calligraphy shows the syllable Hung, painted by Ngak’chang Rinpoche. <a href="https://aroterlineage.org/en/vajrayana-arts-and-crafts/calligraphy/">More on the lineage’s calligraphy</a>.</span></p>
+    </div>
+  </footer>
+</div>
+
+<script type="text/plain" id="ics-fallback">BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Roaring Silence Koeln//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Roaring Silence Köln
+X-WR-TIMEZONE:Europe/Berlin
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:20261115@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261115T180000
+DTEND;TZID=Europe/Berlin:20261115T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20261129@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261129T180000
+DTEND;TZID=Europe/Berlin:20261129T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20261213@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261213T180000
+DTEND;TZID=Europe/Berlin:20261213T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20261227@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261227T180000
+DTEND;TZID=Europe/Berlin:20261227T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270110@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270110T180000
+DTEND;TZID=Europe/Berlin:20270110T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270124@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270124T180000
+DTEND;TZID=Europe/Berlin:20270124T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270207@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270207T180000
+DTEND;TZID=Europe/Berlin:20270207T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270221@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270221T180000
+DTEND;TZID=Europe/Berlin:20270221T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270307@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270307T180000
+DTEND;TZID=Europe/Berlin:20270307T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270321@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270321T180000
+DTEND;TZID=Europe/Berlin:20270321T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+END:VCALENDAR
+</script>
+<script>
+/* ---- Einstellungen: hier eintragen, sobald vorhanden -------------------- */
+const CONFIG = {
+  icsFile:   "roaring-silence.ics",
+  signalUrl: "https://signal.group/#CjQKIMxsDtcPN1EUu-4ZTmEd-7nihWeiM0bBG2pLeYpXAIRrEhB8a44THZi3RoAS-lTBKail",
+  donateUrl: "",   // z. B. Steady, Ko-fi oder PayPal
+  address:   "Wallstraße 80, 51063 Köln",
+  mapUrl:    "https://www.openstreetmap.org/search?query=Wallstra%C3%9Fe%2080%2C%2051063%20K%C3%B6ln",
+  maxDates:  8
+};
+/* ------------------------------------------------------------------------ */
+
+const root = document.documentElement;
+let lang = "de";
+let events = [];
+
+function parseICS(text) {
+  const lines = text.replace(/\r?\n[ \t]/g, "").split(/\r?\n/);
+  const out = []; let ev = null;
+  for (const line of lines) {
+    if (line === "BEGIN:VEVENT") { ev = {}; continue; }
+    if (line === "END:VEVENT") { if (ev && ev.start) out.push(ev); ev = null; continue; }
+    if (!ev) continue;
+    const i = line.indexOf(":"); if (i < 0) continue;
+    const key = line.slice(0, i).split(";")[0].toUpperCase();
+    const val = line.slice(i + 1).replace(/\\n/gi, " ").replace(/\\([,;\\])/g, "$1");
+    if (key === "DTSTART") ev.start = val.replace(/Z$/, "");
+    else if (key === "DTEND") ev.end = val.replace(/Z$/, "");
+    else if (key === "SUMMARY") ev.summary = val;
+    else if (key === "STATUS") ev.status = val.toUpperCase();
+    else if (key === "COMMENT") ev.comment = val;
+  }
+  for (const e of out) {
+    e.ymd = e.start.slice(0, 8);
+    e.off = e.status === "CANCELLED" || /^(fällt aus|abgesagt|cancelled)/i.test(e.summary || "");
+  }
+  return out.sort((a, b) => a.start.localeCompare(b.start));
+}
+
+function todayInCologne() {
+  try {
+    return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin", year: "numeric", month: "2-digit", day: "2-digit" })
+      .format(new Date()).replace(/-/g, "");
+  } catch (e) {
+    const d = new Date();
+    return "" + d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+  }
+}
+
+function fmtDay(ymd) {
+  const d = new Date(Date.UTC(+ymd.slice(0, 4), +ymd.slice(4, 6) - 1, +ymd.slice(6, 8)));
+  return new Intl.DateTimeFormat(lang === "en" ? "en-GB" : "de-DE",
+    { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(d);
+}
+
+function clock(t) { // "YYYYMMDDTHHMMSS" -> [h, m]
+  const m = /T(\d\d)(\d\d)/.exec(t || ""); return m ? [+m[1], +m[2]] : null;
+}
+function fmtTime(e) {
+  const a = clock(e.start), b = clock(e.end); if (!a) return "";
+  if (lang === "en") {
+    const one = ([h, m]) => (h % 12 || 12) + (m ? ":" + String(m).padStart(2, "0") : "") + (h < 12 ? " am" : " pm");
+    return b ? one(a).replace(/ (am|pm)$/, (s) => (a[0] < 12) === (b[0] < 12) ? "" : s) + "–" + one(b) : one(a);
+  }
+  const one = ([h, m]) => h + (m ? ":" + String(m).padStart(2, "0") : "");
+  return (b ? one(a) + "–" + one(b) : one(a)) + " Uhr";
+}
+
+function render() {
+  const today = todayInCologne();
+  const upcoming = events.filter((e) => e.ymd >= today).slice(0, CONFIG.maxDates);
+  const next = upcoming.find((e) => !e.off);
+  const list = document.getElementById("dates");
+  list.textContent = "";
+  for (const e of upcoming) {
+    const li = document.createElement("li");
+    const day = document.createElement("span"); day.className = "day"; day.textContent = fmtDay(e.ymd);
+    const time = document.createElement("span"); time.className = "time";
+    if (e.off) { li.className = "off"; time.textContent = lang === "en" ? "Cancelled" : "Fällt aus"; }
+    else { time.textContent = fmtTime(e); }
+    if (e === next) { li.className = "is-next"; day.dataset.next = lang === "en" ? "Next" : "Nächster Termin"; }
+    li.append(day, time);
+    if (e.off && e.comment) { const why = document.createElement("span"); why.className = "why"; why.textContent = e.comment; li.append(why); }
+    list.append(li);
+  }
+  document.getElementById("dates-empty").hidden = upcoming.length > 0;
+  list.hidden = upcoming.length === 0;
+  document.getElementById("next").hidden = !next;
+  if (next) document.getElementById("next-when").textContent = fmtDay(next.ymd) + " · " + fmtTime(next);
+}
+
+function setLang(l) {
+  lang = l === "en" ? "en" : "de";
+  root.dataset.lang = lang;
+  root.lang = lang;
+  document.getElementById("lang-de").setAttribute("aria-pressed", String(lang === "de"));
+  document.getElementById("lang-en").setAttribute("aria-pressed", String(lang === "en"));
+  try { localStorage.setItem("rs-lang", lang); } catch (e) {}
+  labelMotion();
+  render();
+}
+
+/* Hintergrundfilm: läuft stumm vor und zurück (statt neu zu starten), hält
+   an bei „weniger Bewegung“ oder Datensparmodus, und immer per Knopf.
+   Echte Rückwärtswiedergabe unterstützen Browser bei Video nicht – die
+   Rückfahrt wird daher manuell erzeugt, indem currentTime pro Frame
+   zurückgesetzt wird, solange der Film „an“ ist. */
+const MOTION_LABEL = {
+  de: { pause: "Bewegung aus", play: "Bewegung an" },
+  en: { pause: "Pause motion", play: "Play motion" }
+};
+let motionBtn = null, bgVideo = null, bgOn = false, bgReversing = false, bgRafId = null, bgLastTs = null;
+
+function labelMotion() {
+  if (!motionBtn || !bgVideo) return;
+  motionBtn.textContent = MOTION_LABEL[lang][bgOn ? "pause" : "play"];
+  motionBtn.setAttribute("aria-pressed", String(bgOn));
+  motionBtn.lang = lang;
+}
+
+function bgReverseStep(ts) {
+  if (!bgOn || !bgReversing) { bgRafId = null; return; }
+  if (bgLastTs === null) bgLastTs = ts;
+  const t = bgVideo.currentTime - (ts - bgLastTs) / 1000;
+  bgLastTs = ts;
+  if (t <= 0) {
+    bgReversing = false;
+    bgLastTs = null;
+    bgVideo.currentTime = 0;
+    const p = bgVideo.play();
+    if (p && p.catch) p.catch(() => {});
+  } else {
+    bgVideo.currentTime = t;
+    bgRafId = requestAnimationFrame(bgReverseStep);
+  }
+}
+
+function startReverse() {
+  bgReversing = true;
+  bgLastTs = null;
+  bgVideo.pause();
+  bgRafId = requestAnimationFrame(bgReverseStep);
+}
+
+function playBackdrop() {
+  if (!bgVideo.src) bgVideo.src = bgVideo.dataset.src;
+  bgOn = true;
+  bgReversing = false;
+  const p = bgVideo.play();
+  if (p && p.catch) p.catch(() => { bgOn = false; labelMotion(); });
+  labelMotion();
+}
+
+function pauseBackdrop() {
+  bgOn = false;
+  bgReversing = false;
+  if (bgRafId) { cancelAnimationFrame(bgRafId); bgRafId = null; }
+  bgVideo.pause();
+  labelMotion();
+}
+
+function wireBackdrop() {
+  bgVideo = document.getElementById("bg");
+  motionBtn = document.getElementById("motion");
+  if (!bgVideo || !motionBtn) return;
+  let saved = null;
+  try { saved = localStorage.getItem("rs-motion"); } catch (e) {}
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches
+    || (navigator.connection && navigator.connection.saveData);
+
+  bgVideo.addEventListener("ended", () => { if (bgOn) startReverse(); });
+  motionBtn.addEventListener("click", () => {
+    if (bgOn) { pauseBackdrop(); try { localStorage.setItem("rs-motion", "off"); } catch (e) {} }
+    else { playBackdrop(); try { localStorage.setItem("rs-motion", "on"); } catch (e) {} }
+  });
+  motionBtn.hidden = false;
+
+  if (saved === "on" || (saved !== "off" && !calm)) playBackdrop();
+  labelMotion();
+}
+
+function wireCopy(btn) {
+  btn.addEventListener("click", async () => {
+    const el = document.getElementById(btn.dataset.copy);
+    const done = () => {
+      const old = btn.innerHTML;
+      btn.textContent = lang === "en" ? "Copied" : "Kopiert";
+      setTimeout(() => { btn.innerHTML = old; }, 1600);
+    };
+    try { await navigator.clipboard.writeText(el.textContent); done(); }
+    catch (e) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+}
+
+function start() {
+  // language: saved choice, then #en / #de, then browser language
+  let pick = null;
+  try { pick = localStorage.getItem("rs-lang"); } catch (e) {}
+  if (location.hash === "#en" || location.hash === "#de") pick = location.hash.slice(1);
+  if (!pick) pick = (navigator.language || "de").toLowerCase().startsWith("de") ? "de" : "en";
+  document.getElementById("lang-de").addEventListener("click", () => setLang("de"));
+  document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
+  document.querySelectorAll("[data-copy]").forEach(wireCopy);
+  wireBackdrop();
+
+  // calendar address, derived from wherever the page is hosted
+  const icsUrl = new URL(CONFIG.icsFile, location.href);
+  icsUrl.hash = ""; icsUrl.search = "";
+  document.getElementById("ics-url").textContent = icsUrl.href;
+  if (/^https?:$/.test(icsUrl.protocol)) document.getElementById("webcal").href = "webcal://" + icsUrl.host + icsUrl.pathname;
+
+  if (CONFIG.signalUrl) { document.getElementById("signal-link").href = CONFIG.signalUrl; document.getElementById("signal-on").hidden = false; document.getElementById("signal-off").hidden = true; }
+  if (CONFIG.donateUrl) { document.getElementById("donate-link").href = CONFIG.donateUrl; document.getElementById("donate-on").hidden = false; }
+  if (CONFIG.address) {
+    document.getElementById("addr").textContent = CONFIG.address;
+    document.getElementById("addr-on").hidden = false; document.getElementById("addr-off").hidden = true;
+    if (CONFIG.mapUrl) { const m = document.getElementById("map"); m.href = CONFIG.mapUrl; m.hidden = false; }
+  }
+
+  // dates: the copy built into the page shows at once, the live file replaces it
+  events = parseICS(document.getElementById("ics-fallback").textContent);
+  setLang(pick);
+  fetch(CONFIG.icsFile, { cache: "no-store" })
+    .then((r) => (r.ok ? r.text() : Promise.reject()))
+    .then((t) => { const live = parseICS(t); if (live.length || /BEGIN:VCALENDAR/.test(t)) { events = live; render(); } })
+    .catch(() => {});
+}
+start();
+</script>

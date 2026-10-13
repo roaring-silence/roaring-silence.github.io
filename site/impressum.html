@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Impressum — Roaring Silence</title>
+<meta name="robots" content="noindex">
+<style>
+@font-face { font-family: "Archivo"; src: url("fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("fonts/newsreader.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("fonts/newsreader-italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap; }
+
+:root {
+  --page: #e9eaea;
+  --ink: #15181c;
+  --ink-muted: #5b6068;
+  --hairline: #cbcdcd;
+  --dusk: #2a4a73;
+  --element-earth: #d9a400; --element-water: #ffffff; --element-fire: #c8372d; --element-air: #2e8b57; --element-space: #1b49c9;
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --step--1: 0.875rem; --step-0: 1.125rem; --step-2: 1.75rem;
+  --measure: 38rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--body); font-size: var(--step-0); line-height: 1.55; }
+[hidden] { display: none !important; }
+
+:root:not([data-lang="en"]) [data-l="en"] { display: none; }
+:root[data-lang="en"] [data-l="de"] { display: none; }
+
+a { color: var(--dusk); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--dusk); outline-offset: 3px; border-radius: 2px; }
+
+.spine { position: fixed; top: 0; left: 0; bottom: 0; width: 6px; z-index: 2; display: grid; grid-template-rows: repeat(5, 1fr); border-right: 1px solid var(--hairline); pointer-events: none; }
+.spine i:nth-child(1) { background: var(--element-earth); }
+.spine i:nth-child(2) { background: var(--element-water); }
+.spine i:nth-child(3) { background: var(--element-fire); }
+.spine i:nth-child(4) { background: var(--element-air); }
+.spine i:nth-child(5) { background: var(--element-space); }
+
+.wrap { max-width: 62rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 2.5rem); padding-block: 1.25rem 3rem; display: flex; flex-direction: column; gap: 2rem; }
+
+.top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--display); font-size: var(--step--1); }
+.top .back { font-weight: 600; }
+.lang { display: flex; gap: 0.25rem; }
+.lang button { font: inherit; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-muted); background: transparent; border: 1px solid transparent; padding: 0.3rem 0.6rem; cursor: pointer; }
+.lang button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+
+h1 { margin: 0; font-family: var(--display); font-size: var(--step-2); font-weight: 800; font-stretch: 110%; line-height: 1.1; }
+h2 { margin: 0; font-family: var(--display); font-size: var(--step-0); font-weight: 700; }
+main { display: flex; flex-direction: column; gap: 1.25rem; max-width: var(--measure); }
+main p { margin: 0; }
+</style>
+
+<div class="spine" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="index.html">← <span data-l="de">Zurück zu Roaring Silence</span><span data-l="en" lang="en">Back to Roaring Silence</span></a>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button type="button" id="lang-de" aria-pressed="true">DE</button>
+      <button type="button" id="lang-en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <h1><span data-l="de">Impressum</span><span data-l="en" lang="en">Legal notice</span></h1>
+
+  <main>
+    <p><span data-l="de">Angaben gemäß § 5 DDG:</span><span data-l="en" lang="en">Information according to § 5 DDG (German Digital Services Act):</span></p>
+    <p>Aro Sangha Cologne<br>Bachstraße 22a<br>51063 Köln</p>
+    <p><span data-l="de">E-Mail: </span><span data-l="en" lang="en">Email: </span>aro.sangha.cologne@gmail.com</p>
+    <p><span data-l="de">Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</span><span data-l="en" lang="en">We are not willing or obliged to take part in dispute resolution proceedings before a consumer arbitration board.</span></p>
+
+    <h2><span data-l="de">Haftung für Inhalte</span><span data-l="en" lang="en">Liability for content</span></h2>
+    <p><span data-l="de">Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</span><span data-l="en" lang="en">As a service provider, we are responsible for our own content on these pages in accordance with general law under § 7 (1) DDG. However, under §§ 8 to 10 DDG we are not obliged to monitor transmitted or stored third-party information, or to investigate circumstances pointing to unlawful activity. Obligations to remove or block the use of information under general law remain unaffected. Liability in this regard is only possible from the point in time at which a concrete infringement becomes known. On becoming aware of any such infringement, we will remove the content immediately.</span></p>
+
+    <h2><span data-l="de">Haftung für Links</span><span data-l="en" lang="en">Liability for links</span></h2>
+    <p><span data-l="de">Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</span><span data-l="en" lang="en">Our offering contains links to external third-party websites over whose content we have no influence. We therefore accept no liability for this third-party content. The respective provider or operator of a linked page is always responsible for its content. The linked pages were checked for possible legal violations at the time of linking. No unlawful content was identifiable at that time. Permanent monitoring of the content of linked pages is not reasonable without concrete evidence of a legal violation. On becoming aware of any infringement, we will remove such links immediately.</span></p>
+
+    <h2><span data-l="de">Urheberrecht</span><span data-l="en" lang="en">Copyright</span></h2>
+    <p><span data-l="de">Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</span><span data-l="en" lang="en">The content and works created by the site operators on these pages are subject to German copyright law. Duplication, processing, distribution, or any form of commercialisation of such material beyond the scope of copyright law requires the prior written consent of its respective author or creator. Downloads and copies of this page are permitted only for private, non-commercial use. Insofar as the content on this page was not created by the operator, third-party copyrights are respected. Should you nonetheless become aware of a copyright infringement, please inform us accordingly. On becoming aware of any infringement, we will remove such content immediately.</span></p>
+  </main>
+</div>
+
+<script>
+const root = document.documentElement;
+function setLang(l) {
+  const lang = l === "en" ? "en" : "de";
+  root.dataset.lang = lang;
+  root.lang = lang;
+  document.getElementById("lang-de").setAttribute("aria-pressed", String(lang === "de"));
+  document.getElementById("lang-en").setAttribute("aria-pressed", String(lang === "en"));
+  try { localStorage.setItem("rs-lang", lang); } catch (e) {}
+}
+document.getElementById("lang-de").addEventListener("click", () => setLang("de"));
+document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
+let pick = "de";
+try { pick = localStorage.getItem("rs-lang") || pick; } catch (e) {}
+setLang(pick);
+</script>

@@ -1,0 +1,147 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Roaring Silence Koeln//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Roaring Silence Köln
+X-WR-TIMEZONE:Europe/Berlin
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:20261115@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261115T180000
+DTEND;TZID=Europe/Berlin:20261115T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20261129@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261129T180000
+DTEND;TZID=Europe/Berlin:20261129T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20261213@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261213T180000
+DTEND;TZID=Europe/Berlin:20261213T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20261227@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20261227T180000
+DTEND;TZID=Europe/Berlin:20261227T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270110@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270110T180000
+DTEND;TZID=Europe/Berlin:20270110T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270124@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270124T180000
+DTEND;TZID=Europe/Berlin:20270124T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270207@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270207T180000
+DTEND;TZID=Europe/Berlin:20270207T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270221@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270221T180000
+DTEND;TZID=Europe/Berlin:20270221T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270307@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270307T180000
+DTEND;TZID=Europe/Berlin:20270307T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+BEGIN:VEVENT
+UID:20270321@roaring-silence-koeln
+DTSTAMP:20261012T114139Z
+DTSTART;TZID=Europe/Berlin:20270321T180000
+DTEND;TZID=Europe/Berlin:20270321T190000
+SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
+LOCATION:Zeiträume Studio\, Köln-Mülheim
+DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
+ sangha.cologne@gmail.com
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+END:VCALENDAR
