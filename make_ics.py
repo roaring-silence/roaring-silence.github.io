@@ -14,7 +14,7 @@ from pathlib import Path
 
 # ---- Einstellungen -------------------------------------------------------
 FIRST = date(2026, 11, 15)          # erster Termin (Sonntag)
-UNTIL = date(2027, 3, 31)           # letzter Tag, bis zu dem Termine erzeugt werden
+UNTIL = date(2027, 1, 31)           # letzter Tag, bis zu dem Termine erzeugt werden
 EVERY_DAYS = 14                     # vierzehntägig
 START, END = "180000", "190000"     # 18:00 bis 19:00 Uhr, Ortszeit Köln
 
@@ -34,6 +34,12 @@ CANCELLED = {
 EXTRA = [
     # date(2027, 1, 17),
 ]
+
+# Termine vorübergehend ausgelassen (ohne offizielle Absage): erscheinen
+# gar nicht erst, weder im Kalender noch auf der Website.
+SKIP = set((
+    # date(2027, 2, 7),
+))
 # --------------------------------------------------------------------------
 
 VTIMEZONE = """BEGIN:VTIMEZONE
@@ -79,7 +85,7 @@ def all_dates():
     while d <= UNTIL:
         days.append(d)
         d += timedelta(days=EVERY_DAYS)
-    return sorted(set(days) | set(EXTRA) | set(CANCELLED))
+    return sorted((set(days) | set(EXTRA) | set(CANCELLED)) - SKIP)
 
 
 def main():

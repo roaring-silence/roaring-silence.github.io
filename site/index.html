@@ -94,8 +94,8 @@
   --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --body: "Newsreader", "Iowan Old Style", Georgia, serif;
   --hand: "Nanum Brush Script", "Segoe Script", "Bradley Hand", cursive;
-  /* lighter at the top so the film reads clearly, settling to full `page` by the time body copy starts */
-  --scrim: linear-gradient(to bottom, rgb(var(--page-rgb) / 0.12) 0%, rgb(var(--page-rgb) / 0.30) 30%, rgb(var(--page-rgb) / 0.78) 55%, rgb(var(--page-rgb) / 1) 78%);
+  /* lighter at the top so the photo reads clearly, settling to full `page` by the time body copy starts */
+  --scrim: linear-gradient(to bottom, rgb(var(--page-rgb) / 0.05) 0%, rgb(var(--page-rgb) / 0.15) 30%, rgb(var(--page-rgb) / 0.55) 55%, rgb(var(--page-rgb) / 1) 78%);
   --step--1: 0.875rem; --step-0: 1.125rem; --step-1: 1.375rem; --step-2: 1.75rem;
   --measure: 38rem;
 }
@@ -105,10 +105,10 @@ body { margin: 0; position: relative; background: var(--page); color: var(--ink)
 img { max-width: 100%; }
 [hidden] { display: none !important; }
 
-/* backdrop: the evening film sits behind the top of the page and dissolves
+/* backdrop: the evening photo sits behind the top of the page and dissolves
    into the page colour, so the reading column never competes with it */
 .backdrop { position: absolute; top: 0; left: 0; right: 0; height: min(84vh, 50rem); z-index: -1; overflow: hidden; background: var(--page); }
-.backdrop video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.backdrop img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .backdrop::after {
   content: ""; position: absolute; inset: 0;
   background: var(--scrim);
@@ -141,8 +141,6 @@ a:hover { text-decoration-thickness: 2px; }
 .lang { display: flex; gap: 0.25rem; }
 .lang button { font: inherit; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-muted); background: transparent; border: 1px solid transparent; padding: 0.3rem 0.6rem; cursor: pointer; }
 .lang button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
-.motion { font: inherit; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-muted); background: transparent; border: 1px solid transparent; padding: 0.3rem 0.6rem; cursor: pointer; }
-.motion:hover { color: var(--ink); }
 
 .hero { display: flex; flex-direction: column; gap: 1.5rem; }
 
@@ -220,8 +218,7 @@ footer p { margin: 0; max-width: var(--measure); }
 </style>
 
 <div class="backdrop" aria-hidden="true">
-  <video id="bg" poster="media/rhein-abend.jpg" data-src="media/rhein-abend.mp4"
-         muted playsinline disablepictureinpicture preload="none"></video>
+  <img src="media/rhein-abend.jpg" alt="">
 </div>
 
 <div class="spine" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -232,7 +229,6 @@ footer p { margin: 0; max-width: var(--measure); }
     <div class="top">
       <span class="where"><span data-l="de">Köln-Mülheim</span><span data-l="en" lang="en">Köln-Mülheim</span></span>
       <div class="controls">
-        <button type="button" class="motion" id="motion" hidden></button>
         <div class="lang" role="group" aria-label="Sprache / Language">
           <button type="button" id="lang-de" aria-pressed="true">DE</button>
           <button type="button" id="lang-en" aria-pressed="false">EN</button>
@@ -243,8 +239,8 @@ footer p { margin: 0; max-width: var(--measure); }
     <span class="mark-plate"><img class="mark" src="media/hung.jpg" width="72" height="72" alt="Kalligrafie Hung, gemalt von Ngak’chang Rinpoche, Aro gTér-Linie"></span>
     <h1 class="wordmark" lang="en"><span class="loud">Roaring</span><span class="quiet">Silence</span></h1>
 
-    <p class="lede" data-l="de">Stilles Sitzen und yogischer Gesang. Eine Praxisgruppe der Aro gTér-Tradition.</p>
-    <p class="lede" data-l="en" lang="en">Silent sitting and yogic song. A sitting group of the Aro gTér Tradition.</p>
+    <p class="lede" data-l="de">Stilles Sitzen und yogischer Gesang.<br>Eine Praxisgruppe der Aro gTér-Tradition.</p>
+    <p class="lede" data-l="en" lang="en">Silent sitting and yogic song.<br>A sitting group of the Aro gTér Tradition.</p>
 
     <p class="epigraph" data-l="de"><q>Wenn du einfach vergisst, was richtig und falsch ist, und einfach sitzt – kommt die ganze Sache von selbst zur Ruhe.</q> <span class="attr">— Khandro Déchen<sup><a href="#fn-quote" id="fnref-quote">1</a></sup></span></p>
     <p class="epigraph" data-l="en" lang="en"><q>If you simply forget about right and wrong and simply sit—the whole deal will relax by itself.</q> <span class="attr">— Khandro Déchen<sup><a href="#fn-quote-en" id="fnref-quote-en">1</a></sup></span></p>
@@ -343,6 +339,16 @@ footer p { margin: 0; max-width: var(--measure); }
     <div class="qa">
 
       <details open>
+        <summary><span data-l="de">Wie läuft eine Sitzung ab?</span><span data-l="en" lang="en">What happens in a session?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Eine Stunde, sonntags von 18 bis 19 Uhr. Wir sitzen gemeinsam in Stille und praktizieren dazwischen <a class="term" href="https://aroencyclopaedia.org/shared/text/y/yogic_song_ar_deu.php">yogischen Gesang</a>. Davor steht die kurze Einführung, Fragen sind willkommen.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>One hour, Sundays from 6 to 7 pm. We sit together in silence and practise <a class="term" href="https://aroterlineage.org/en/teachings/chant-yogic-song/">yogic song</a> in between. The short introduction comes first, and questions are welcome.</p>
+        </div>
+      </details>
+
+      <details>
         <summary><span data-l="de">Brauche ich Vorerfahrung?</span><span data-l="en" lang="en">Do I need prior experience?</span></summary>
         <div class="answer" data-l="de">
           <p>Nein. Zu Beginn jeder Sitzung gibt es eine kurze Einführung in das, was wir tun. Für die meisten Veranstaltungen der Linie gilt: keine Voraussetzungen, keine Erfahrung mit Meditation oder Buddhismus nötig.</p>
@@ -355,80 +361,12 @@ footer p { margin: 0; max-width: var(--measure); }
       </details>
 
       <details>
-        <summary><span data-l="de">Lässt sich die Praxis mit Beruf und Familie vereinbaren?</span><span data-l="en" lang="en">Does practice fit alongside work and family life?</span></summary>
+        <summary><span data-l="de">Was kostet es?</span><span data-l="en" lang="en">What does it cost?</span></summary>
         <div class="answer" data-l="de">
-          <p>Ja. In der Aro gTér-Linie leben die meisten Praktizierenden mitten im Alltag, nicht im Kloster. Mehr dazu im <a href="https://aroterlineage.org/de/press/interview-with-dewang-pamo/">Interview mit Ngakma Déwang Pamo</a>.</p>
+          <p>Die Teilnahme ist kostenlos. Wir freuen uns über Spenden, um die Raumkosten zu decken, <a href="#ort">einmalig vor Ort</a>.</p>
         </div>
         <div class="answer" data-l="en" lang="en">
-          <p>Yes. In the Aro gTér lineage, most practitioners live fully in everyday life rather than in a monastery. More in this <a href="https://aroterlineage.org/en/press/interview-with-dewang-pamo/">interview with Ngakma Déwang Pamo</a>.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary><span data-l="de">Wie läuft eine Sitzung ab?</span><span data-l="en" lang="en">What happens in a session?</span></summary>
-        <div class="answer" data-l="de">
-          <p>Eine Stunde, sonntags von 18 bis 19 Uhr. Wir sitzen gemeinsam in Stille und üben dazwischen <a class="term" href="https://aroencyclopaedia.org/shared/text/y/yogic_song_ar_deu.php">yogischen Gesang</a>. Davor steht die kurze Einführung, Fragen sind willkommen.</p>
-        </div>
-        <div class="answer" data-l="en" lang="en">
-          <p>One hour, Sundays from 6 to 7 pm. We sit together in silence and practise <a class="term" href="https://aroterlineage.org/en/teachings/chant-yogic-song/">yogic song</a> in between. The short introduction comes first, and questions are welcome.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary><span data-l="de">Muss ich Buddhistin oder Buddhist sein?</span><span data-l="en" lang="en">Do I have to be a Buddhist?</span></summary>
-        <div class="answer" data-l="de">
-          <p>Nein. Die Praxis selbst ist nicht an einen Glauben gebunden.</p>
-          <p class="note"><a href="https://aroterlineage.org/en/about/what-to-expect-at-aro-gter-events/">Was bei Veranstaltungen der Linie zu erwarten ist</a> (englisch) · <a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
-        </div>
-        <div class="answer" data-l="en" lang="en">
-          <p>No. The practice itself asks for nothing to be believed.</p>
-          <p class="note"><a href="https://aroterlineage.org/en/about/what-to-expect-at-aro-gter-events/">What to expect at Aro gTér events</a> · <a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
-        </div>
-      </details>
-
-      <details>
-        <summary><span data-l="de">Muss ich singen können?</span><span data-l="en" lang="en">Do I need to be able to sing?</span></summary>
-        <div class="answer" data-l="de">
-          <p>Nein. <q>Es geht nicht darum, ein perfekter Teil eines perfekten Chors zu sein – sondern in die Dimension des Klangs einzutreten.</q> Zittrige oder brüchige Töne gehören zur Übung.</p>
-          <p class="note"><a href="https://aroencyclopaedia.org/shared/text/y/yogic_song_ar_deu.php">Über yogischen Gesang</a></p>
-        </div>
-        <div class="answer" data-l="en" lang="en">
-          <p>No. <q>The principle is not to be a perfect part of a perfect choir – but to enter into the dimension of sound.</q> Quivering or faltering notes are part of the practice.</p>
-          <p class="note"><a href="https://aroterlineage.org/en/teachings/chant-yogic-song/">About chant and yogic song</a></p>
-        </div>
-      </details>
-
-      <details>
-        <summary><span data-l="de">Ich kann meine Gedanken nicht abstellen.</span><span data-l="en" lang="en">I can’t stop thinking.</span></summary>
-        <div class="answer" data-l="de">
-          <p>Das ist auch nicht nötig. Um zu meditieren, muss das Denken nicht aufhören.</p>
-          <p class="note"><a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
-        </div>
-        <div class="answer" data-l="en" lang="en">
-          <p>You don’t have to. It is not necessary to stop thinking in order to meditate.</p>
-          <p class="note"><a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
-        </div>
-      </details>
-
-      <details>
-        <summary><span data-l="de">Ich kann nicht am Boden sitzen.</span><span data-l="en" lang="en">I can’t sit on the floor.</span></summary>
-        <div class="answer" data-l="de">
-          <p>Meditieren geht in vielen Körperhaltungen, auch auf einem Stuhl. Es zählt ein aufrechter Rücken, nicht der volle Lotussitz.</p>
-          <p class="note"><a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
-        </div>
-        <div class="answer" data-l="en" lang="en">
-          <p>Meditation works in many postures, a chair included. What matters is an upright spine, not full lotus.</p>
-          <p class="note"><a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
-        </div>
-      </details>
-
-      <details>
-        <summary><span data-l="de">Muss ich ein Kissen oder eine Matte mitbringen?</span><span data-l="en" lang="en">Do I need to bring a cushion or mat?</span></summary>
-        <div class="answer" data-l="de">
-          <p>Nein. Vor Ort stehen gute Sitzkissen und Matten zur Verfügung.</p>
-        </div>
-        <div class="answer" data-l="en" lang="en">
-          <p>No. Good cushions and mats are available at the venue.</p>
+          <p>Participation is free. We're glad to receive donations to help cover the room, <a href="#ort">once at the session</a>.</p>
         </div>
       </details>
 
@@ -453,12 +391,70 @@ footer p { margin: 0; max-width: var(--measure); }
       </details>
 
       <details>
-        <summary><span data-l="de">Was kostet es?</span><span data-l="en" lang="en">What does it cost?</span></summary>
+        <summary><span data-l="de">Muss ich ein Kissen oder eine Matte mitbringen?</span><span data-l="en" lang="en">Do I need to bring a cushion or mat?</span></summary>
         <div class="answer" data-l="de">
-          <p>Die Teilnahme ist kostenlos. Wir freuen uns über Spenden, um die Raumkosten zu decken, <a href="#ort">einmalig vor Ort</a>.</p>
+          <p>Nein. Vor Ort stehen gute Sitzkissen und Matten zur Verfügung.</p>
         </div>
         <div class="answer" data-l="en" lang="en">
-          <p>Participation is free. We're glad to receive donations to help cover the room, <a href="#ort">once at the session</a>.</p>
+          <p>No. Good cushions and mats are available at the venue.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Ich kann nicht am Boden sitzen.</span><span data-l="en" lang="en">I can’t sit on the floor.</span></summary>
+        <div class="answer" data-l="de">
+          <p>Meditieren geht in vielen Körperhaltungen, auch auf einem Stuhl. Es zählt ein aufrechter Rücken, nicht der volle Lotussitz.</p>
+          <p class="note"><a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>Meditation works in many postures, a chair included. What matters is an upright spine, not full lotus.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Muss ich singen können?</span><span data-l="en" lang="en">Do I need to be able to sing?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Nein. Es geht nicht um Perfektion, sondern um den natürlichen Klang der Stimme, so wie sie gerade ist.</p>
+          <p class="note"><a href="https://aroencyclopaedia.org/shared/text/y/yogic_song_ar_deu.php">Über yogischen Gesang</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>No. It is not about perfection, but about the natural sound of the voice just as it is.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/teachings/chant-yogic-song/">About chant and yogic song</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Ich kann meine Gedanken nicht abstellen.</span><span data-l="en" lang="en">I can’t stop thinking.</span></summary>
+        <div class="answer" data-l="de">
+          <p>Das ist auch nicht nötig. Um zu meditieren, muss das Denken nicht aufhören.</p>
+          <p class="note"><a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>You don’t have to. It is not necessary to stop thinking in order to meditate.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Muss ich buddhistisch sein?</span><span data-l="en" lang="en">Do I have to be Buddhist?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Nein. Mit der Praxis sind keine religiösen Verpflichtungen verbunden. Ob du einer Religion angehörst oder nicht, ist für das Praktizieren nicht wichtig.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/about/what-to-expect-at-aro-gter-events/">Was bei Veranstaltungen der Linie zu erwarten ist</a> (englisch) · <a href="https://aroterlineage.org/de/meditationskurs-des-aro-gter/haufige-fragen/">Häufige Fragen zur Meditation</a></p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>No. The practice involves no religious commitments. Whether you belong to a religion or not is not important for taking part.</p>
+          <p class="note"><a href="https://aroterlineage.org/en/about/what-to-expect-at-aro-gter-events/">What to expect at Aro gTér events</a> · <a href="https://aroterlineage.org/en/meditation-course/meditation-faqs/">Meditation FAQs</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span data-l="de">Lässt sich die Praxis mit Beruf und Familie vereinbaren?</span><span data-l="en" lang="en">Does practice fit alongside work and family life?</span></summary>
+        <div class="answer" data-l="de">
+          <p>Ja. In der Aro gTér-Linie leben die meisten Praktizierenden mitten im Alltag, nicht im Kloster. Mehr dazu im <a href="https://aroterlineage.org/de/press/interview-with-dewang-pamo/">Interview mit Ngakma Déwang Pamo</a>.</p>
+        </div>
+        <div class="answer" data-l="en" lang="en">
+          <p>Yes. In the Aro gTér lineage, most practitioners live fully in everyday life rather than in a monastery. More in this <a href="https://aroterlineage.org/en/press/interview-with-dewang-pamo/">interview with Ngakma Déwang Pamo</a>.</p>
         </div>
       </details>
 
@@ -536,7 +532,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:20261115@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
+DTSTAMP:20261014T083941Z
 DTSTART;TZID=Europe/Berlin:20261115T180000
 DTEND;TZID=Europe/Berlin:20261115T190000
 SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
@@ -548,7 +544,7 @@ SEQUENCE:0
 END:VEVENT
 BEGIN:VEVENT
 UID:20261129@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
+DTSTAMP:20261014T083941Z
 DTSTART;TZID=Europe/Berlin:20261129T180000
 DTEND;TZID=Europe/Berlin:20261129T190000
 SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
@@ -560,7 +556,7 @@ SEQUENCE:0
 END:VEVENT
 BEGIN:VEVENT
 UID:20261213@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
+DTSTAMP:20261014T083941Z
 DTSTART;TZID=Europe/Berlin:20261213T180000
 DTEND;TZID=Europe/Berlin:20261213T190000
 SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
@@ -572,7 +568,7 @@ SEQUENCE:0
 END:VEVENT
 BEGIN:VEVENT
 UID:20261227@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
+DTSTAMP:20261014T083941Z
 DTSTART;TZID=Europe/Berlin:20261227T180000
 DTEND;TZID=Europe/Berlin:20261227T190000
 SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
@@ -584,7 +580,7 @@ SEQUENCE:0
 END:VEVENT
 BEGIN:VEVENT
 UID:20270110@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
+DTSTAMP:20261014T083941Z
 DTSTART;TZID=Europe/Berlin:20270110T180000
 DTEND;TZID=Europe/Berlin:20270110T190000
 SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
@@ -596,57 +592,9 @@ SEQUENCE:0
 END:VEVENT
 BEGIN:VEVENT
 UID:20270124@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
+DTSTAMP:20261014T083941Z
 DTSTART;TZID=Europe/Berlin:20270124T180000
 DTEND;TZID=Europe/Berlin:20270124T190000
-SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
-LOCATION:Zeiträume Studio\, Köln-Mülheim
-DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
- sangha.cologne@gmail.com
-STATUS:CONFIRMED
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:20270207@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
-DTSTART;TZID=Europe/Berlin:20270207T180000
-DTEND;TZID=Europe/Berlin:20270207T190000
-SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
-LOCATION:Zeiträume Studio\, Köln-Mülheim
-DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
- sangha.cologne@gmail.com
-STATUS:CONFIRMED
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:20270221@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
-DTSTART;TZID=Europe/Berlin:20270221T180000
-DTEND;TZID=Europe/Berlin:20270221T190000
-SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
-LOCATION:Zeiträume Studio\, Köln-Mülheim
-DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
- sangha.cologne@gmail.com
-STATUS:CONFIRMED
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:20270307@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
-DTSTART;TZID=Europe/Berlin:20270307T180000
-DTEND;TZID=Europe/Berlin:20270307T190000
-SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
-LOCATION:Zeiträume Studio\, Köln-Mülheim
-DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
- sangha.cologne@gmail.com
-STATUS:CONFIRMED
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:20270321@roaring-silence-koeln
-DTSTAMP:20261012T114139Z
-DTSTART;TZID=Europe/Berlin:20270321T180000
-DTEND;TZID=Europe/Berlin:20270321T190000
 SUMMARY:Roaring Silence · Stilles Sitzen und yogischer Gesang
 LOCATION:Zeiträume Studio\, Köln-Mülheim
 DESCRIPTION:Sitzgruppe der Aro gTér-Linie. Auf Spendenbasis. Kontakt: aro.
@@ -754,87 +702,7 @@ function setLang(l) {
   document.getElementById("lang-de").setAttribute("aria-pressed", String(lang === "de"));
   document.getElementById("lang-en").setAttribute("aria-pressed", String(lang === "en"));
   try { localStorage.setItem("rs-lang", lang); } catch (e) {}
-  labelMotion();
   render();
-}
-
-/* Hintergrundfilm: läuft stumm vor und zurück (statt neu zu starten), hält
-   an bei „weniger Bewegung“ oder Datensparmodus, und immer per Knopf.
-   Echte Rückwärtswiedergabe unterstützen Browser bei Video nicht – die
-   Rückfahrt wird daher manuell erzeugt, indem currentTime pro Frame
-   zurückgesetzt wird, solange der Film „an“ ist. */
-const MOTION_LABEL = {
-  de: { pause: "Bewegung aus", play: "Bewegung an" },
-  en: { pause: "Pause motion", play: "Play motion" }
-};
-let motionBtn = null, bgVideo = null, bgOn = false, bgReversing = false, bgRafId = null, bgLastTs = null;
-
-function labelMotion() {
-  if (!motionBtn || !bgVideo) return;
-  motionBtn.textContent = MOTION_LABEL[lang][bgOn ? "pause" : "play"];
-  motionBtn.setAttribute("aria-pressed", String(bgOn));
-  motionBtn.lang = lang;
-}
-
-function bgReverseStep(ts) {
-  if (!bgOn || !bgReversing) { bgRafId = null; return; }
-  if (bgLastTs === null) bgLastTs = ts;
-  const t = bgVideo.currentTime - (ts - bgLastTs) / 1000;
-  bgLastTs = ts;
-  if (t <= 0) {
-    bgReversing = false;
-    bgLastTs = null;
-    bgVideo.currentTime = 0;
-    const p = bgVideo.play();
-    if (p && p.catch) p.catch(() => {});
-  } else {
-    bgVideo.currentTime = t;
-    bgRafId = requestAnimationFrame(bgReverseStep);
-  }
-}
-
-function startReverse() {
-  bgReversing = true;
-  bgLastTs = null;
-  bgVideo.pause();
-  bgRafId = requestAnimationFrame(bgReverseStep);
-}
-
-function playBackdrop() {
-  if (!bgVideo.src) bgVideo.src = bgVideo.dataset.src;
-  bgOn = true;
-  bgReversing = false;
-  const p = bgVideo.play();
-  if (p && p.catch) p.catch(() => { bgOn = false; labelMotion(); });
-  labelMotion();
-}
-
-function pauseBackdrop() {
-  bgOn = false;
-  bgReversing = false;
-  if (bgRafId) { cancelAnimationFrame(bgRafId); bgRafId = null; }
-  bgVideo.pause();
-  labelMotion();
-}
-
-function wireBackdrop() {
-  bgVideo = document.getElementById("bg");
-  motionBtn = document.getElementById("motion");
-  if (!bgVideo || !motionBtn) return;
-  let saved = null;
-  try { saved = localStorage.getItem("rs-motion"); } catch (e) {}
-  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches
-    || (navigator.connection && navigator.connection.saveData);
-
-  bgVideo.addEventListener("ended", () => { if (bgOn) startReverse(); });
-  motionBtn.addEventListener("click", () => {
-    if (bgOn) { pauseBackdrop(); try { localStorage.setItem("rs-motion", "off"); } catch (e) {} }
-    else { playBackdrop(); try { localStorage.setItem("rs-motion", "on"); } catch (e) {} }
-  });
-  motionBtn.hidden = false;
-
-  if (saved === "on" || (saved !== "off" && !calm)) playBackdrop();
-  labelMotion();
 }
 
 function wireCopy(btn) {
@@ -859,7 +727,6 @@ function start() {
   document.getElementById("lang-de").addEventListener("click", () => setLang("de"));
   document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
   document.querySelectorAll("[data-copy]").forEach(wireCopy);
-  wireBackdrop();
 
   // calendar address, derived from wherever the page is hosted
   const icsUrl = new URL(CONFIG.icsFile, location.href);
