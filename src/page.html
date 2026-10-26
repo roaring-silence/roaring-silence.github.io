@@ -125,6 +125,7 @@ a:hover { text-decoration-thickness: 2px; }
 section { display: flex; flex-direction: column; gap: 1.25rem; }
 h2 { margin: 0; font-family: var(--display); font-size: var(--step-2); font-weight: 800; font-stretch: 110%; line-height: 1.1; text-wrap: balance; }
 h3 { margin: 0; font-family: var(--display); font-size: var(--step-0); font-weight: 700; }
+h3 .icon { width: 1.05em; height: 1.05em; margin-right: 0.45rem; vertical-align: -0.14em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .note { font-size: var(--step--1); color: var(--ink-muted); font-family: var(--body); font-style: italic; }
 a.term { color: inherit; text-decoration-style: dotted; text-decoration-color: var(--dusk); }
 
@@ -240,7 +241,7 @@ footer p { margin: 0; max-width: var(--measure); }
     <h2><span data-l="de">Auf dem Laufenden bleiben</span><span data-l="en" lang="en">Stay informed</span></h2>
     <div class="pair">
       <div>
-        <h3><span data-l="de">Kalender abonnieren</span><span data-l="en" lang="en">Subscribe to the calendar</span></h3>
+        <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M8 3.5v4M16 3.5v4M3.5 10.5h17"/></svg><span data-l="de">Kalender abonnieren</span><span data-l="en" lang="en">Subscribe to the calendar</span></h3>
         <p><span data-l="de">Alle Termine erscheinen in deinem Kalender und aktualisieren sich von selbst.</span><span data-l="en" lang="en">All dates appear in your calendar and update by themselves.</span></p>
         <div class="actions">
           <a class="btn" id="webcal" href="roaring-silence.ics"><span data-l="de">Kalender abonnieren</span><span data-l="en" lang="en">Subscribe</span></a>
@@ -252,13 +253,13 @@ footer p { margin: 0; max-width: var(--measure); }
         </div>
       </div>
       <div>
-        <h3><span data-l="de">Erinnerungen per Signal</span><span data-l="en" lang="en">Reminders via Signal</span></h3>
+        <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4.2c4.6 0 8.3 3.1 8.3 7s-3.7 7-8.3 7c-.9 0-1.8-.1-2.6-.3l-4.5 2 1.2-3.3C4 15.3 3.7 13.3 3.7 11.2c0-3.9 3.7-7 8.3-7Z"/></svg><span data-l="de">Erinnerungen per Signal</span><span data-l="en" lang="en">Reminders via Signal</span></h3>
         <p><span data-l="de">In der Signal-Gruppe gibt es Erinnerungen und kurzfristige Änderungen. Dort schreiben nur wir, es bleibt also ruhig.</span><span data-l="en" lang="en">The Signal group carries reminders and short-notice changes. Only we post there, so it stays quiet.</span></p>
         <div class="actions" id="signal-on" hidden>
           <a class="btn" id="signal-link" href="#dabei"><span data-l="de">Signal-Gruppe beitreten</span><span data-l="en" lang="en">Join the Signal group</span></a>
         </div>
         <p class="note" id="signal-off"><span data-l="de">Der Beitrittslink folgt. Bis dahin genügt eine E-Mail.</span><span data-l="en" lang="en">The invitation link will follow. Until then, an email is enough.</span></p>
-        <h3><span data-l="de">Erinnerungen per E-Mail</span><span data-l="en" lang="en">Reminders by email</span></h3>
+        <h3><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.8 7 7.1 5.6a1.8 1.8 0 0 0 2.2 0L20.2 7"/></svg><span data-l="de">Erinnerungen per E-Mail</span><span data-l="en" lang="en">Reminders by email</span></h3>
         <p><span data-l="de">Auch ohne Signal: dieselben Erinnerungen und kurzfristigen Änderungen als E-Mail, eine leere E-Mail genügt. Dort schreiben nur wir.</span><span data-l="en" lang="en">Without Signal too: the same reminders and short-notice changes by email, and an empty email is all it takes. Only we post there.</span></p>
         <div class="actions" id="list-on" hidden>
           <a class="btn" id="list-link" href="#dabei"><span data-l="de">Per E-Mail anmelden</span><span data-l="en" lang="en">Subscribe by email</span></a>
