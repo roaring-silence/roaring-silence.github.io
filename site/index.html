@@ -286,7 +286,7 @@ footer p { margin: 0; max-width: var(--measure); }
     <h2><span data-l="de">Termine</span><span data-l="en" lang="en">Dates</span></h2>
     <ul class="dates" id="dates" aria-live="polite"></ul>
     <p class="note" id="dates-empty" hidden><span data-l="de">Zurzeit sind keine Termine eingetragen. Neue Termine erscheinen hier und im Kalender.</span><span data-l="en" lang="en">No dates are listed at the moment. New dates will appear here and in the calendar.</span></p>
-    <p class="note"><span data-l="de">Absagen stehen zuerst hier und in der Signal-Gruppe. Abonnierte Kalender aktualisieren sich oft erst nach einigen Stunden.</span><span data-l="en" lang="en">Cancellations appear here and in the Signal group first. Subscribed calendars often take a few hours to update.</span></p>
+    <p class="note"><span data-l="de">Absagen stehen zuerst hier, in der Signal-Gruppe und auf der E-Mail-Liste. Abonnierte Kalender aktualisieren sich oft erst nach einigen Stunden.</span><span data-l="en" lang="en">Cancellations appear here, in the Signal group and on the email list first. Subscribed calendars often take a few hours to update.</span></p>
   </section>
 
   <section id="dabei">
@@ -306,11 +306,18 @@ footer p { margin: 0; max-width: var(--measure); }
       </div>
       <div>
         <h3><span data-l="de">Erinnerungen per Signal</span><span data-l="en" lang="en">Reminders via Signal</span></h3>
-        <p><span data-l="de">In der Signal-Gruppe gibt es Erinnerungen und kurzfristige Änderungen. Nur die Leitung schreibt, es bleibt also ruhig.</span><span data-l="en" lang="en">The Signal group carries reminders and short-notice changes. Only the organiser posts, so it stays quiet.</span></p>
+        <p><span data-l="de">In der Signal-Gruppe gibt es Erinnerungen und kurzfristige Änderungen. Dort schreiben nur wir, es bleibt also ruhig.</span><span data-l="en" lang="en">The Signal group carries reminders and short-notice changes. Only we post there, so it stays quiet.</span></p>
         <div class="actions" id="signal-on" hidden>
           <a class="btn" id="signal-link" href="#dabei"><span data-l="de">Signal-Gruppe beitreten</span><span data-l="en" lang="en">Join the Signal group</span></a>
         </div>
         <p class="note" id="signal-off"><span data-l="de">Der Beitrittslink folgt. Bis dahin genügt eine E-Mail.</span><span data-l="en" lang="en">The invitation link will follow. Until then, an email is enough.</span></p>
+        <h3><span data-l="de">Erinnerungen per E-Mail</span><span data-l="en" lang="en">Reminders by email</span></h3>
+        <p><span data-l="de">Auch ohne Signal: dieselben Erinnerungen und kurzfristigen Änderungen als E-Mail. Dort schreiben nur wir.</span><span data-l="en" lang="en">Without Signal too: the same reminders and short-notice changes by email. Only we post there.</span></p>
+        <div class="actions" id="list-on" hidden>
+          <a class="btn" id="list-link" href="#dabei"><span data-l="de">Per E-Mail anmelden</span><span data-l="en" lang="en">Subscribe by email</span></a>
+        </div>
+        <p class="note" id="list-note" hidden><span data-l="de">Der Knopf öffnet eine leere E-Mail an die Liste. Du bekommst eine Rückfrage zur Bestätigung. Abmelden geht jederzeit mit <a id="list-unsub-de" href="#dabei">einer E-Mail</a>.</span><span data-l="en" lang="en">The button opens an empty email to the list. You will be asked to confirm. Leaving works at any time with <a id="list-unsub-en" href="#dabei">one email</a>.</span></p>
+        <p class="note" id="list-off"><span data-l="de">Die E-Mail-Liste folgt. Bis dahin genügt eine E-Mail an den Kontakt unten.</span><span data-l="en" lang="en">The email list will follow. Until then, an email to the contact below is enough.</span></p>
         <h3><span data-l="de">Kontakt</span><span data-l="en" lang="en">Contact</span></h3>
         <div class="copyrow">
           <code id="mail">aro.sangha.cologne@gmail.com</code>
@@ -377,10 +384,10 @@ footer p { margin: 0; max-width: var(--measure); }
       <details>
         <summary><span data-l="de">Muss ich mich anmelden?</span><span data-l="en" lang="en">Do I need to register?</span></summary>
         <div class="answer" data-l="de">
-          <p>Nein, komm einfach vorbei, einmal oder regelmäßig. Ob ein Termin stattfindet, steht oben unter <a href="#termine">Termine</a> und in der Signal-Gruppe.</p>
+          <p>Nein, komm einfach vorbei, einmal oder regelmäßig. Ob ein Termin stattfindet, steht oben unter <a href="#termine">Termine</a>, in der Signal-Gruppe und auf der E-Mail-Liste.</p>
         </div>
         <div class="answer" data-l="en" lang="en">
-          <p>No, just come along, once or regularly. Whether a session takes place is listed above under <a href="#termine">Dates</a> and in the Signal group.</p>
+          <p>No, just come along, once or regularly. Whether a session takes place is listed above under <a href="#termine">Dates</a>, in the Signal group and on the email list.</p>
         </div>
       </details>
 
@@ -613,6 +620,7 @@ END:VCALENDAR
 const CONFIG = {
   icsFile:   "roaring-silence.ics",
   signalUrl: "https://signal.group/#CjQKIMxsDtcPN1EUu-4ZTmEd-7nihWeiM0bBG2pLeYpXAIRrEhB8a44THZi3RoAS-lTBKail",
+  listEmail: "roaring-silence-koeln@googlegroups.com",
   donateUrl: "",   // z. B. Steady, Ko-fi oder PayPal
   address:   "Wallstraße 80, 51063 Köln",
   mapUrl:    "https://www.openstreetmap.org/search?query=Wallstra%C3%9Fe%2080%2C%2051063%20K%C3%B6ln",
@@ -739,6 +747,14 @@ function start() {
   if (/^https?:$/.test(icsUrl.protocol)) document.getElementById("webcal").href = "webcal://" + icsUrl.host + icsUrl.pathname;
 
   if (CONFIG.signalUrl) { document.getElementById("signal-link").href = CONFIG.signalUrl; document.getElementById("signal-on").hidden = false; document.getElementById("signal-off").hidden = true; }
+  if (CONFIG.listEmail) {
+    const [local, domain] = CONFIG.listEmail.split("@");
+    document.getElementById("list-link").href = "mailto:" + local + "+subscribe@" + domain;
+    for (const id of ["list-unsub-de", "list-unsub-en"]) document.getElementById(id).href = "mailto:" + local + "+unsubscribe@" + domain;
+    document.getElementById("list-on").hidden = false;
+    document.getElementById("list-note").hidden = false;
+    document.getElementById("list-off").hidden = true;
+  }
   if (CONFIG.donateUrl) { document.getElementById("donate-link").href = CONFIG.donateUrl; document.getElementById("donate-on").hidden = false; }
   if (CONFIG.address) {
     document.getElementById("addr").textContent = CONFIG.address;
